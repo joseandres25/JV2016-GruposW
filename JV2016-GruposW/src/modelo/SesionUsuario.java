@@ -1,6 +1,6 @@
 /** 
  * Proyecto: Juego de la vida.
- * Implementa el concepto de SesionUsuario segÃºn el modelo 2.
+ * Implementa el concepto de SesionUsuario según el modelo 2.
  * @since: prototipo1.0
  * @source: SesionUsuario.java 
  * @version: 2.0 - 2017.03.20
@@ -24,10 +24,12 @@ public class SesionUsuario implements Serializable, Cloneable {
 	 * @param usr
 	 * @param fecha
 	 */
-	public SesionUsuario(Usuario usr, Fecha fecha, EstadoSesion estado) {
+	public SesionUsuario(Usuario usr, Fecha fecha, EstadoSesion estado){
+		
 		setUsr(usr);
 		setFecha(fecha);
 		setEstado(estado);
+		
 	}
 
 	public SesionUsuario() {
@@ -38,7 +40,7 @@ public class SesionUsuario implements Serializable, Cloneable {
 		this(su.usr, new Fecha(su.fecha), su.estado);
 	}
 
-	// MÃ©todos de acceso
+	// Métodos de acceso
 
 	public Usuario getUsr() {
 		return usr;
@@ -52,11 +54,11 @@ public class SesionUsuario implements Serializable, Cloneable {
 		return estado;
 	}
 	/**
-	 * Obtiene idSesion concatenando idUsr + un nÃºmero como texto:
-	 * @return idSesion Ãºnico generado.
+	 * Obtiene idSesion concatenando idUsr + un número como texto:
+	 * @return idSesion único generado.
 	 */
 	public String getIdSesion() {
-		return	usr.getIdUsr() + "-" + fecha.getAÃ±o() + fecha.getMes() + fecha.getDia() 
+		return	usr.getIdUsr() + "-" + fecha.getAño() + fecha.getMes() + fecha.getDia() 
 		+ fecha.getHora() + fecha.getMinuto() + fecha.getSegundo();
 	}
 
@@ -75,22 +77,26 @@ public class SesionUsuario implements Serializable, Cloneable {
 	 * @param fecha.
 	 * @return true si cumple.
 	 */
-	private boolean fechaSesionValida(Fecha fecha) {
+	private boolean fechaSesionValida(Fecha fecha){
 		if (fecha != null
 				&& fechaSesionCoherente(fecha)) {
 			return true;
+		}
+		if(!fecha.getClass().equals(fecha)){
+			new ModeloException("fecha no es de tipo fecha");
 		}
 		return false;
 	}
 
 	/**
-	 * Comprueba coherencia de una fecha de sesiÃ³n.
+	 * Comprueba coherencia de una fecha de sesión.
 	 * @param fecha.
 	 * @return true si cumple.
 	 */
 	private boolean fechaSesionCoherente(Fecha fecha) {
 		// Comprueba que fechaSesion no es, por ejemplo, del futuro
 		// --Pendiente--
+		assert fecha!=null;
 		return true;
 	}
 
@@ -98,11 +104,12 @@ public class SesionUsuario implements Serializable, Cloneable {
 	 * @param estado the estado to set
 	 */
 	public void setEstado(EstadoSesion estado) {
+		assert estado!=null;
 		this.estado = estado;
 	}
 
 	/**
-	 * Redefine el mÃ©todo heredado de la clase Objecto.
+	 * Redefine el método heredado de la clase Objecto.
 	 * @return el texto formateado del estado (valores de atributos) 
 	 * del objeto de la clase SesionUsuario  
 	 */
@@ -113,19 +120,19 @@ public class SesionUsuario implements Serializable, Cloneable {
 	}
 
 	/**
-	 * hashCode() complementa al mÃ©todo equals y sirve para comparar objetos de forma 
-	 * rÃ¡pida en estructuras Hash. 
+	 * hashCode() complementa al método equals y sirve para comparar objetos de forma 
+	 * rápida en estructuras Hash. 
 	 * Cuando Java compara dos objetos en estructuras de tipo hash (HashMap, HashSet etc)
-	 * primero invoca al mÃ©todo hashcode y luego el equals.
-	 * @return un nÃºmero entero de 32 bit.
+	 * primero invoca al método hashcode y luego el equals.
+	 * @return un número entero de 32 bit.
 	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
-		result = prime * result + ((fecha == null) ? 0 : fecha.hashCode());
-		result = prime * result + ((usr == null) ? 0 : usr.hashCode());
+			int result = 1;
+			result = prime * result + ((estado == null) ? 0 : estado.hashCode());
+			result = prime * result + ((fecha == null) ? 0 : fecha.hashCode());
+			result = prime * result + ((usr == null) ? 0 : usr.hashCode());
 		return result;
 	}
 
@@ -148,6 +155,9 @@ public class SesionUsuario implements Serializable, Cloneable {
 				return true;
 			}
 		}
+		if(obj==null){
+			new ModeloException("el objeto es null ingrese otro");
+		}
 		return false;
 	}
 
@@ -158,7 +168,17 @@ public class SesionUsuario implements Serializable, Cloneable {
 	@Override
 	public Object clone() {
 		// Utiliza el constructor copia.
-		return new SesionUsuario(this);
+		
+		/*Object clon =null;
+		try {
+			clon = new SesionUsuario(this);
+		} catch (ModeloException e) {} 
+			
+			return clon;
+		}*/
+			
+	return new SesionUsuario(this);
+		
 	}
 
 
