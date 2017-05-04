@@ -1,4 +1,3 @@
-package modelo.test;
 /** 
  * Proyecto: Juego de la vida.
  * Clase JUnit de prueba automatizada de las características de la clase Nif según el modelo 2.
@@ -8,6 +7,7 @@ package modelo.test;
  * @author: Tomás Buendía Alacid
  */
 
+package modelo.test;
 
 import static org.junit.Assert.*;
 
