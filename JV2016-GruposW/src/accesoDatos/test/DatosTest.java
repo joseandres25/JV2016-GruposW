@@ -267,14 +267,14 @@ public class DatosTest {
 	@Test
 	public void testActualizarMundo() {
 		Map<Patron, Posicion> distribucionPrueba = new Hashtable<Patron, Posicion>();
-		distribucionPrueba.put(new Patron(), new Posicion(3,5));
 		Mundo mundoNuevo = new Mundo(mundoPrueba);
 		try {
+			distribucionPrueba.put(new Patron(), new Posicion(3,5));
 			fachada.altaMundo(mundoPrueba);
 			mundoNuevo.setDistribucion(distribucionPrueba);
 			fachada.actualizarMundo(mundoNuevo);
 		} 
-		catch (DatosException e) { }
+		catch (DatosException | ModeloException e) { }
 		assertSame(fachada.obtenerMundo(mundoNuevo), mundoNuevo);
 	}
 
