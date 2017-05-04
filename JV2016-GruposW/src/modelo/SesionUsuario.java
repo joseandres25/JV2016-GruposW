@@ -53,9 +53,11 @@ public class SesionUsuario implements Serializable, Cloneable {
 	public EstadoSesion getEstado() {
 		return estado;
 	}
-	/**
-	 * Obtiene idSesion concatenando idUsr + un n�mero como texto:
-	 * @return idSesion �nico generado.
+	
+  /**
+	 * Obtiene idSesion concatenando idUsr + un número como texto:
+	 * @return idSesion único generado.
+
 	 */
 	public String getIdSesion() {
 		return	usr.getIdUsr() + "-" + fecha.getAño() + fecha.getMes() + fecha.getDia() 

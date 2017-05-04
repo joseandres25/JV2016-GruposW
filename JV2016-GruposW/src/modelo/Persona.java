@@ -3,7 +3,7 @@
  *  Se hace validación de datos pero no se gestionan todavía los errores correspondientes.
  *  @since: prototipo1.0
  *  @source: Persona.java 
- *  @version: 2.0 - 2017.03.16 
+ *  @version: 2.1 - 2017.05.02 
  *  @author: ajp
  */
 
@@ -33,7 +33,7 @@ public  abstract class Persona implements Serializable, Cloneable {
 	 * @param fechaNacimiento
 	 */
 	public Persona(Nif nif, String nombre, String apellidos,
-			DireccionPostal domicilio, Correo correo, Fecha fechaNacimiento) {
+			DireccionPostal domicilio, Correo correo, Fecha fechaNacimiento)throws ModeloException {
 		setNif(nif);
 		setNombre(nombre);
 		setApellidos(apellidos);
@@ -46,7 +46,7 @@ public  abstract class Persona implements Serializable, Cloneable {
 		return nif;
 	}
 
-	public void setNif(Nif nif) {
+	public void setNif(Nif nif)  {
 		assert nif != null;
 		this.nif = nif;
 	}
@@ -55,9 +55,11 @@ public  abstract class Persona implements Serializable, Cloneable {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) {	
-		assert nombreValido(nombre);
-		this.nombre = nombre;
+	public void setNombre(String nombre) throws ModeloException {	
+		if (nombreValido(nombre)){
+			this.nombre = nombre;
+		}
+		throw new ModeloException ("Nombre no valido");
 	}
 
 	private boolean nombreValido(String nombre) {
@@ -71,9 +73,11 @@ public  abstract class Persona implements Serializable, Cloneable {
 		return apellidos;
 	}
 
-	public void setApellidos(String apellidos) {
-		assert apellidoValido(apellidos);
+	public void setApellidos(String apellidos)throws ModeloException {
+		if (apellidoValido(apellidos)){
 		this.apellidos = apellidos;
+		}
+	throw new ModeloException ("Apellidos no validos");
 	}
 
 	private boolean apellidoValido(String apellidos) {
@@ -96,9 +100,11 @@ public  abstract class Persona implements Serializable, Cloneable {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(Fecha fechaNacimiento) {
-		assert fechaNacimientoValida(fechaNacimiento);
-		this.fechaNacimiento = fechaNacimiento;
+	public void setFechaNacimiento(Fecha fechaNacimiento) throws ModeloException {
+		if (fechaNacimientoValida(fechaNacimiento)){
+			this.fechaNacimiento = fechaNacimiento;
+		}
+		throw new ModeloException ("Fecha de Nacimiento no valida");
 	}
 
 	/**
@@ -120,8 +126,13 @@ public  abstract class Persona implements Serializable, Cloneable {
 	 * @return true si cumple.
 	 */
 	private boolean fechaNacimientoCoherente(Fecha fechaNacimiento) {
-		// Comprueba que fechaNacimiento no es, por ejemplo, del futuro
-		// --Pendiente--
+		
+		/**Comprueba que fechaNacimiento no es, por ejemplo, del futuro
+		 * Falta Crear el metodo en la Clase Fecha( Preguntar al grupo 3)
+		 */
+		 
+		//fechaNacimiento.CompararFechaActual();
+		
 		return true;
 	}
 
