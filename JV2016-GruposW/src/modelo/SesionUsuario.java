@@ -1,10 +1,10 @@
 /** 
  * Proyecto: Juego de la vida.
- * Implementa el concepto de SesionUsuario según el modelo 2.
+ * Implementa el concepto de SesionUsuario segÃºn el modelo 2.
  * @since: prototipo1.0
  * @source: SesionUsuario.java 
  * @version: 2.0 - 2017.03.20
- * @author: ajp
+ * @author: ajp, AIS
  */
 
 package modelo;
@@ -32,15 +32,15 @@ public class SesionUsuario implements Serializable, Cloneable {
 		
 	}
 
-	public SesionUsuario() {
+	public SesionUsuario() throws ModeloException {
 		this(new Usuario(), new Fecha(), EstadoSesion.EN_PREPARACION);
 	}
 
-	public SesionUsuario(SesionUsuario su) {
+	public SesionUsuario(SesionUsuario su) throws ModeloException {
 		this(su.usr, new Fecha(su.fecha), su.estado);
 	}
 
-	// Métodos de acceso
+	// MÃ©todos de acceso
 
 	public Usuario getUsr() {
 		return usr;
@@ -53,12 +53,14 @@ public class SesionUsuario implements Serializable, Cloneable {
 	public EstadoSesion getEstado() {
 		return estado;
 	}
-	/**
-	 * Obtiene idSesion concatenando idUsr + un número como texto:
-	 * @return idSesion único generado.
+	
+  /**
+	 * Obtiene idSesion concatenando idUsr + un nÃºmero como texto:
+	 * @return idSesion Ãºnico generado.
+
 	 */
 	public String getIdSesion() {
-		return	usr.getIdUsr() + "-" + fecha.getAño() + fecha.getMes() + fecha.getDia() 
+		return	usr.getIdUsr() + "-" + fecha.getAÃ±o() + fecha.getMes() + fecha.getDia() 
 		+ fecha.getHora() + fecha.getMinuto() + fecha.getSegundo();
 	}
 
@@ -89,7 +91,7 @@ public class SesionUsuario implements Serializable, Cloneable {
 	}
 
 	/**
-	 * Comprueba coherencia de una fecha de sesión.
+	 * Comprueba coherencia de una fecha de sesiÃ³n.
 	 * @param fecha.
 	 * @return true si cumple.
 	 */
@@ -109,7 +111,7 @@ public class SesionUsuario implements Serializable, Cloneable {
 	}
 
 	/**
-	 * Redefine el método heredado de la clase Objecto.
+	 * Redefine el mÃ©todo heredado de la clase Objecto.
 	 * @return el texto formateado del estado (valores de atributos) 
 	 * del objeto de la clase SesionUsuario  
 	 */
@@ -120,11 +122,11 @@ public class SesionUsuario implements Serializable, Cloneable {
 	}
 
 	/**
-	 * hashCode() complementa al método equals y sirve para comparar objetos de forma 
-	 * rápida en estructuras Hash. 
+	 * hashCode() complementa al mÃ©todo equals y sirve para comparar objetos de forma 
+	 * rÃ¡pida en estructuras Hash. 
 	 * Cuando Java compara dos objetos en estructuras de tipo hash (HashMap, HashSet etc)
-	 * primero invoca al método hashcode y luego el equals.
-	 * @return un número entero de 32 bit.
+	 * primero invoca al mÃ©todo hashcode y luego el equals.
+	 * @return un nÃºmero entero de 32 bit.
 	 */
 	@Override
 	public int hashCode() {
@@ -161,25 +163,16 @@ public class SesionUsuario implements Serializable, Cloneable {
 		return false;
 	}
 
-	/**
-	 * Genera un clon del propio objeto realizando una copia profunda.
-	 * @return el objeto clonado.
+	/* (non-Javadoc)
+	 * @see java.lang.Object#clone()
 	 */
 	@Override
-	public Object clone() {
-		// Utiliza el constructor copia.
-		
-		/*Object clon =null;
-		try {
-			clon = new SesionUsuario(this);
-		} catch (ModeloException e) {} 
-			
-			return clon;
-		}*/
-			
-	return new SesionUsuario(this);
-		
+	protected Object clone() {
+		Object copia=null;
+		try{
+			copia=new SesionUsuario(this);
+		} catch (ModeloException e){}
+		return copia;
 	}
-
 
 } // class
