@@ -4,7 +4,7 @@
  * Se hace validación de datos pero no se gestionan todavía los errores correspondientes.
  * @since: prototipo1.0
  * @source: Usuario.java 
- * @version: 2.0 - 2017.03.16 
+ * @version: 2.1 - 2017.04.16 
  * @author: ajp
  */
 
@@ -82,9 +82,8 @@ public class Usuario extends Persona {
 	/**
 	 * Constructor por defecto. Utiliza constructor convencional.
 	 * @throws ModeloException 
-	 * @ 
 	 */
-	public Usuario() throws ModeloException  {
+	public Usuario() throws ModeloException {
 		this(new Nif(), "Nombre", "Apellidos1 Apellido2", new DireccionPostal(), new Correo(), 
 				new Fecha(), new Fecha(), new ClaveAcceso(), RolUsuario.NORMAL);
 	}
@@ -93,9 +92,8 @@ public class Usuario extends Persona {
 	 * Constructor copia. Utiliza constructor convencional.
 	 * @param usr
 	 * @throws ModeloException 
-	 * @ 
 	 */
-	public Usuario(Usuario usr) throws ModeloException  {
+	public Usuario(Usuario usr) throws ModeloException {
 		this(new Nif(usr.nif), usr.nombre, usr.apellidos, usr.domicilio, usr.correo,
 				usr.fechaNacimiento, usr.fechaAlta, new ClaveAcceso(usr.claveAcceso), usr.rol);
 	}
@@ -111,8 +109,9 @@ public class Usuario extends Persona {
 	public void setFechaAlta(Fecha fechaAlta) throws ModeloException {
 		if (fechaAltaValida(fechaAlta)) {
 		this.fechaAlta = fechaAlta;
+		return;
 		}
-		throw new ModeloException("Fecha de alta no valida");
+		throw new ModeloException("La fecha de alta: " + fechaAlta + " no es válida...");
 	}
 
 	/**
@@ -121,11 +120,8 @@ public class Usuario extends Persona {
 	 * @return true si cumple.
 	 */
 	private boolean fechaAltaValida(Fecha fechaAlta) {
-		if (fechaAlta != null
-				&& fechaAltaCoherente(fechaAlta)) {
-			return true;
-		}
-		return false;
+		assert fechaAlta != null;
+		return fechaAltaCoherente(fechaAlta);
 	}
 
 	/**
@@ -143,11 +139,9 @@ public class Usuario extends Persona {
 		return claveAcceso;
 	}
 
-	public void setClaveAcceso(ClaveAcceso claveAcceso) throws ModeloException {
-		if (claveAcceso != null) {
+	public void setClaveAcceso(ClaveAcceso claveAcceso) {
+		assert claveAcceso != null;
 		this.claveAcceso = claveAcceso;
-		}
-		throw new ModeloException("Clave de acceso no valida");
 	}
 
 	public RolUsuario getRol() {
@@ -155,11 +149,9 @@ public class Usuario extends Persona {
 	}
 
 
-	public void setRol(RolUsuario rol) throws ModeloException {
-		if (rol != null) {
+	public void setRol(RolUsuario rol) {
+		assert rol != null;
 		this.rol = rol;
-		}
-		throw new ModeloException("Rol no valido");
 	}
 
 	/**
@@ -235,8 +227,7 @@ public class Usuario extends Persona {
 		Object clon = null;
 		try {
 			clon = new Usuario(this);
-		} catch (ModeloException e) {
-		}
+		} catch (ModeloException e) { }
 		return clon;
 	}
 
