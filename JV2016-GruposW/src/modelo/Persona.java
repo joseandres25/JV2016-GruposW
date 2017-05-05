@@ -1,10 +1,11 @@
-/** Proyecto: Juego de la vida.
- *  Implementa el concepto de Persona un sistema según el modelo 2. 
- *  Se hace validación de datos pero no se gestionan todavía los errores correspondientes.
- *  @since: prototipo1.0
- *  @source: Persona.java 
- *  @version: 2.1 - 2017.05.02 
- *  @author: ajp
+/** 
+ * Proyecto: Juego de la vida.
+ * Implementa el concepto de Persona un sistema según el modelo 2. 
+ * Se hace validación de datos pero no se gestionan todavía los errores correspondiente.
+ * @since: prototipo1.0
+ * @source: Persona.java 
+ * @version: 2.1 - 2017.04.16 
+ * @author: ajp
  */
 
 package modelo;
@@ -31,9 +32,10 @@ public  abstract class Persona implements Serializable, Cloneable {
 	 * @param domicilio
 	 * @param correo
 	 * @param fechaNacimiento
+	 * @throws ModeloException 
 	 */
 	public Persona(Nif nif, String nombre, String apellidos,
-			DireccionPostal domicilio, Correo correo, Fecha fechaNacimiento)throws ModeloException {
+			DireccionPostal domicilio, Correo correo, Fecha fechaNacimiento) throws ModeloException {
 		setNif(nif);
 		setNombre(nombre);
 		setApellidos(apellidos);
@@ -46,7 +48,7 @@ public  abstract class Persona implements Serializable, Cloneable {
 		return nif;
 	}
 
-	public void setNif(Nif nif)  {
+	public void setNif(Nif nif) {
 		assert nif != null;
 		this.nif = nif;
 	}
@@ -56,35 +58,33 @@ public  abstract class Persona implements Serializable, Cloneable {
 	}
 
 	public void setNombre(String nombre) throws ModeloException {	
-		if (nombreValido(nombre)){
+		if (nombreValido(nombre)) {
 			this.nombre = nombre;
+			return;
 		}
-		throw new ModeloException ("Nombre no valido");
+		throw new ModeloException("El formato del nombre: " + nombre + " no es válido...");
 	}
 
 	private boolean nombreValido(String nombre) {
-		if (nombre != null) {
-			return	nombre.matches(Formato.PATRON_NOMBRE_PERSONA);
-		}
-		return false;
+		assert nombre != null;
+		return	nombre.matches(Formato.PATRON_NOMBRE_PERSONA);
 	}
 
 	public String getApellidos() {
 		return apellidos;
 	}
 
-	public void setApellidos(String apellidos)throws ModeloException {
-		if (apellidoValido(apellidos)){
-		this.apellidos = apellidos;
+	public void setApellidos(String apellidos) throws ModeloException {
+		if (apellidoValido(apellidos)) {
+			this.apellidos = apellidos;
+			return;
 		}
-	throw new ModeloException ("Apellidos no validos");
+		throw new ModeloException("El formato de los apellidos: " + apellidos + " no es válido...");	
 	}
 
 	private boolean apellidoValido(String apellidos) {
-		if (apellidos != null) {
-			return	nombre.matches(Formato.PATRON_APELLIDOS);
-		}
-		return false;
+		assert apellidos != null;
+		return	nombre.matches(Formato.PATRON_APELLIDOS);
 	}
 
 	public DireccionPostal getDomicilio() {
@@ -101,10 +101,11 @@ public  abstract class Persona implements Serializable, Cloneable {
 	}
 
 	public void setFechaNacimiento(Fecha fechaNacimiento) throws ModeloException {
-		if (fechaNacimientoValida(fechaNacimiento)){
+		if (fechaNacimientoValida(fechaNacimiento)) {
 			this.fechaNacimiento = fechaNacimiento;
+			return;
 		}
-		throw new ModeloException ("Fecha de Nacimiento no valida");
+		throw new ModeloException("La fecha de nacimiento: " + fechaNacimiento + " no es válida...");
 	}
 
 	/**
@@ -113,11 +114,8 @@ public  abstract class Persona implements Serializable, Cloneable {
 	 * @return true si cumple.
 	 */
 	private boolean fechaNacimientoValida(Fecha fechaNacimiento) {
-		if (fechaNacimiento != null
-				&& fechaNacimientoCoherente(fechaNacimiento)) {
-			return true;
-		}
-		return false;
+		assert fechaNacimiento != null;
+		return fechaNacimientoCoherente(fechaNacimiento);
 	}
 
 	/**
@@ -126,13 +124,8 @@ public  abstract class Persona implements Serializable, Cloneable {
 	 * @return true si cumple.
 	 */
 	private boolean fechaNacimientoCoherente(Fecha fechaNacimiento) {
-		
-		/**Comprueba que fechaNacimiento no es, por ejemplo, del futuro
-		 * Falta Crear el metodo en la Clase Fecha( Preguntar al grupo 3)
-		 */
-		 
-		//fechaNacimiento.CompararFechaActual();
-		
+		// Comprueba que fechaNacimiento no es, por ejemplo, del futuro
+		// --Pendiente--
 		return true;
 	}
 
