@@ -1,10 +1,11 @@
-/** Proyecto: Juego de la vida.
- *  Implementa el concepto de Nif según el modelo 2
- *  Se hace validación de datos pero no se gestionan todavía los errores correspondientes.
- *  @since: prototipo1.2
- *  @source: Nif.java 
- *  @version: 2.1 - 2017.05.02
- *  @author: Tomás Buendía Alacid
+/** 
+ * Proyecto: Juego de la vida.
+ * Implementa el concepto de Nif según el modelo 2
+ * Se hace validación de datos pero no se gestionan todavía los errores correspondientes.
+ * @since: prototipo1.2
+ * @source: Nif.java 
+ * @version: 2.1 - 2017.04.25
+ * @author: ajp
  */
 
 package modelo;
@@ -33,19 +34,21 @@ public class Nif implements Serializable, Cloneable {
 	}
 
 	public void setTexto(String texto) throws ModeloException {
-		if(nifValido(texto)){
-		this.texto = texto;
-		return;
+		if (nifValido(texto)) {
+			this.texto = texto;
+			return;
 		}
-		
-		throw new ModeloException("El nif " + texto + " no es válido...");
+		throw new ModeloException("El NIF: " + texto + " no es válido...");	
 	}
 
+	/**
+	 * Comprueba la validez del formato.
+	 * @param texto del NIF
+	 * @return true si la letra es correcta.
+	 */
 	private boolean nifValido(String texto) {
-
 		assert texto != null;
-		return texto.matches(Formato.PATRON_NIF) && letraNIFValida(texto);
-
+		return	texto.matches(Formato.PATRON_NIF) && letraNIFValida(texto);
 	}
 
 	/**
@@ -60,7 +63,7 @@ public class Nif implements Serializable, Cloneable {
 		}
 		return false;
 	} 
-
+	  
 	@Override
 	public String toString() {
 		return texto;
@@ -106,15 +109,13 @@ public class Nif implements Serializable, Cloneable {
 	 */
 	@Override
 	public Object clone() {
-		
 		// Utiliza el constructor copia.
 		Object clon = null;
 		try {
 			clon = new Nif(this);
-		} catch(ModeloException e) { }
-		
+		} 
+		catch (ModeloException e) { }
 		return clon;
-		
 	}
 
 } // class

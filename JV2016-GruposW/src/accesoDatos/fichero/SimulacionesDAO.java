@@ -86,7 +86,13 @@ public class SimulacionesDAO implements OperacionesDAO, Persistente {
 		// Obtiene usuario (invitado) y mundo predeterminados.
 		Usuario usrDemo = UsuariosDAO.getInstancia().obtener("III1R");
 		Mundo mundoDemo = MundosDAO.getInstancia().obtener("MundoDemo");
-		Simulacion simulacionDemo = new Simulacion(usrDemo, new Fecha(), mundoDemo, EstadoSimulacion.PREPARADA);
+		Simulacion simulacionDemo = null;
+		try {
+			simulacionDemo = new Simulacion(usrDemo, new Fecha(), mundoDemo, EstadoSimulacion.PREPARADA);
+		} 
+		catch (ModeloException e) {
+			e.printStackTrace();
+		}
 		datosSimulaciones.add(simulacionDemo);
 		guardarDatos(datosSimulaciones);
 	}
