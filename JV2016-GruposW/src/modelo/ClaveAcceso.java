@@ -4,8 +4,8 @@
  * Se hace validación de datos pero no se gestionan todavía los errores correspondientes.
  * @since: prototipo1.2
  * @source: ClaveAcceso.java 
- * @version: 2.1 - 2017.04.27
- * @author: RML
+ * @version: 2.1 - 2017.04.25
+ * @author: ajp
  */
 
 package modelo;
@@ -22,7 +22,7 @@ public class ClaveAcceso implements Serializable, Cloneable {
 		setTexto(texto);
 	}
 
-	public ClaveAcceso() throws ModeloException  {
+	public ClaveAcceso() throws ModeloException {
 		this("Miau#0");
 	}
 
@@ -33,19 +33,18 @@ public class ClaveAcceso implements Serializable, Cloneable {
 	public String getTexto() {
 		return texto;
 	}
-// problema / solucionado
-	public void setTexto(String texto) throws ModeloException  {
-		if (ClaveAccesoValida(texto)){
-		this.texto = Criptografia.cesar(texto);
-		return;
+
+	public void setTexto(String texto) throws ModeloException {
+		if (ClaveAccesoValida(texto)) {
+			this.texto = Criptografia.cesar(texto);
+			return;
 		}
-			throw new ModeloException("El formato de la contraseña no es valido..");
-		
+		throw new ModeloException("El formato de la contraseña no es válido...");
 	}
-// problema / solucionado
+
 	private boolean ClaveAccesoValida(String texto) {
-		assert texto != null ;
-			return	texto.matches(Formato.PATRON_CONTRASEÑA);
+		assert texto != null;
+		return	texto.matches(Formato.PATRON_CONTRASEÑA);
 	}
 
 	@Override
@@ -59,7 +58,7 @@ public class ClaveAcceso implements Serializable, Cloneable {
 	 * Cuando Java compara dos objetos en estructuras de tipo hash (HashMap, HashSet etc)
 	 * primero invoca al método hashcode y luego el equals.
 	 * @return un número entero de 32 bit.
-	 */
+	*/
 	@Override
 	public int hashCode() {
 		final int primo = 31;
@@ -73,7 +72,7 @@ public class ClaveAcceso implements Serializable, Cloneable {
 	 * Son de la misma clase.
 	 * Tienen los mismos valores en los atributos; o son el mismo objeto.
 	 * @return falso si no cumple las condiciones.
-	 */
+	*/
 	@Override
 	public boolean equals(Object obj) {
 		if (obj != null && getClass() == obj.getClass()) {
@@ -90,18 +89,16 @@ public class ClaveAcceso implements Serializable, Cloneable {
 	/**
 	 * Genera un clon del propio objeto realizando una copia profunda.
 	 * @return el objeto clonado.
-	 */
+	*/
 	@Override
 	public Object clone() {
 		// Utiliza el constructor copia.
-		Object clon = null ;
+		Object clon = null;
 		try {
-			clon =  new ClaveAcceso(this);
+			clon = new ClaveAcceso(this);
 		} 
-		catch (ModeloException e) {
-			e.printStackTrace();
-		}
-		return clon ;
+		catch (ModeloException e) { }
+		return clon;
 	}
 
 } //class
